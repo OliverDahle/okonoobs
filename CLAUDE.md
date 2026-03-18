@@ -42,7 +42,6 @@ På dagen vil du få:
 - Instruksjoner om hva nettsiden spesifikt skal inneholde og kommunisere
 
 ## Hva som forventes av deg
-- Bygg nettsiden raskt og effektivt — vi har begrenset tid
 - Lag noe som ser ut som det er laget av profesjonelle, ikke studenter
 - Prioriter det som gir mest inntrykk: sterke visualiseringer, tydelig narrativ, og polert design
-- Nettsiden skal kunne stå alene som en forståelig presentasjon av casen, men også fungere som støtte under den muntlige presentasjonen
+- Nettsiden skal kunne fungere som støtte under den muntlige presentasjonen, den skal fungere like bra på PC, presentasjonsskjermen og mobilen til de i salen
