@@ -15,19 +15,17 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install and build (if package.json exists)
+      - name: Install and build
         run: |
-          if [ -f package.json ]; then
-            npm install
-            npm run build
-          fi
+          npm ci
+          npm run build
 
-      - name: Deploy to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: 204.168.153.113
-          username: root
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "dist/*"
-          target: "/var/www/okonoobs/public"
-          strip_components: 1
+      - name: Deploy via rsync
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 204.168.153.113 >> ~/.ssh/known_hosts
+          rsync -avz --delete dist/ root@204.168.153.113:/var/www/okonoobs/public/
