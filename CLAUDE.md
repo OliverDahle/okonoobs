@@ -8,12 +8,12 @@ NM i Økonomi er Norges største casekonkurranse for økonomistudenter. Finalen 
 Konkurransen tester faglig bredde innen økonomisk-administrative fag, evne til å anvende teori på reelle problemstillinger, presentasjonsevne, samarbeid under tidspress, og analytisk tenkning.
 
 ## Om denne nettsiden
-Nettsiden er en del av lagets leveranse og presentasjon. Den skal:
-- Støtte og forsterke lagets case-løsning
-- Fungere som et profesjonelt, interaktivt supplement til den muntlige presentasjonen
+Nettsiden er selve presentasjonen. Den er ikke et tilleggsprodukt eller supplement til den muntlige presentasjonen, men det primære visuelle mediet laget bruker for å kommunisere casen. Den skal:
+- Være den visuelle bæreren av hele case-løsningen
+- Vises på presentasjonsskjermen mens laget presenterer muntlig
 - Være tilgjengelig for jury, publikum og samarbeidspartnere på https://økonoobs.no
 - Demonstrere lagets evne til å kommunisere komplekse økonomiske konsepter visuelt og digitalt
-- Imponere og engasjere — dette er en konkurranse, og nettsiden skal skille oss ut
+- Imponere og engasjere, dette er en konkurranse, og nettsiden skal skille oss ut
 
 ## Målgruppe
 - **Jury:** Erfarne økonomer og ledere fra Nordea, BDO, Söderberg & Partners og E24. De forventer faglig substans, presise analyser, og profesjonell presentasjon.
@@ -21,18 +21,19 @@ Nettsiden er en del av lagets leveranse og presentasjon. Den skal:
 - **Samarbeidspartnere:** Potensielle fremtidige arbeidsgivere som vurderer kandidater.
 
 ## Tone og stil
-- Profesjonell, men ikke kjedelig — vi heter Økonoobs, det er lov å ha personlighet
-- Faglig troverdig — vis at vi kan stoffet
-- Visuelt engasjerende — grafer, visualiseringer og interaktive elementer > vegger av tekst
+- Profesjonell, men ikke kjedelig. Vi heter Økonoobs, det er lov å ha personlighet
+- Faglig troverdig. Vis at vi kan stoffet
+- Visuelt engasjerende. Grafer, visualiseringer og interaktive elementer fremfor vegger av tekst
 - Norsk språk gjennomgående (bokmål)
+- Bruk aldri em-dash (tegnet --) verken i kode, tekst eller kommentarer. Bruk punktum, komma eller ny setning i stedet
 
 ## Teknisk oppsett
 - **Deploy:** Alt i `dist/`-mappen deployes automatisk til serveren via GitHub Actions ved push til `main`
 - **Hosting:** Nginx på Ubuntu-server med HTTPS
 - **Domene:** økonoobs.no
-- **Full frihet:** Velg teknologi, struktur og arkitektur fritt. Vanilla HTML/CSS/JS, React, Vue, Vite, Tailwind — hva som helst fungerer. Eneste krav er at `dist/` inneholder det ferdige resultatet. Hvis du bruker et framework med build-steg, sett opp `package.json` med `npm run build` som outputter til `dist/`.
+- **Full frihet:** Velg teknologi, struktur og arkitektur fritt. Vanilla HTML/CSS/JS, React, Vue, Vite, Tailwind. Hva som helst fungerer. Eneste krav er at `dist/` inneholder det ferdige resultatet. Hvis du bruker et framework med build-steg, sett opp `package.json` med `npm run build` som outputter til `dist/`.
 - **Node.js 20** er tilgjengelig i CI-miljøet
-- **Ingen backend** — kun statisk output (men du kan bruke eksterne API-er og CDN-er fritt)
+- **Ingen backend.** Kun statisk output (men du kan bruke eksterne API-er og CDN-er fritt)
 - **Ikke endre CLAUDE.md** da denne skal være statisk gjennom utviklingen
 
 ## Hva som vil bli gitt på konkurransedagen
@@ -45,652 +46,196 @@ På dagen vil du få:
 ## Hva som forventes av deg
 - Lag noe som ser ut som det er laget av profesjonelle, ikke studenter
 - Prioriter det som gir mest inntrykk: sterke visualiseringer, tydelig narrativ, og polert design
-- Nettsiden skal kunne fungere som støtte under den muntlige presentasjonen, den skal fungere like bra på PC, presentasjonsskjermen og mobilen til de i salen
+- Nettsiden er selve presentasjonen og skal fungere like bra på PC, presentasjonsskjermen og mobilen til de i salen
 - Codex og Gemini kommer til å dobbelsjekke all kode så gjør alt skikkelig så slipper vi å finne ut at en av de modellene er bedre enn deg.
 
 ## Arkitektur og struktur
-- Bygg nettsiden som et fullstendig flerside-prosjekt med tydelig mappestruktur — aldri én enkelt HTML-fil
+- Bygg nettsiden som et fullstendig flerside-prosjekt med tydelig mappestruktur. Aldri én enkelt HTML-fil
 - Separer HTML, CSS og JavaScript i egne filer og mapper
 - Lag flere navigerbare sider (f.eks. forside, analyse, løsningsforslag, om laget) med en gjennomgående navbar og footer
 - Nettsiden skal føles som et ekte produkt man kan klikke rundt i, ikke en enkeltstående landingsside
 
 # Spesifikk prompt for selve casen:
-Jeg vil at du skal bygge en komplett, presentasjonsklar nettside for NM i Økonomi på konseptet økonoobs.no. Dette er ikke en vanlig nettside. Det er en 7-minutters casepresentasjon til jury, laget som et fullverdig alternativ til PowerPoint.
-
-Nettsiden skal fungere som selve presentasjonen. Hver seksjon skal oppleves som en tydelig slide. Man skal kunne:
-
-scrolle nedover gjennom historien
-
-hoppe mellom seksjoner via sticky navigasjon
-
-alltid forstå hvor i presentasjonen man er
-
-Målet er en løsning som ser premium, skarp og ferdig ut på storskjerm i et fysisk rom.
-
-Caset som skal løses
-
-Vi har valgt BDO-caset:
-
-Hvordan kan BDO bistå sine SMB-kunder i å ta i bruk mulighetene som ligger i KI? Lag et forslag til en skisse for strategisk oppfølging for en tenkt kunde. Ta egne forutsetninger.
-
-Nettsiden skal bygge opp én tydelig anbefaling:
-
-Hovedbudskap
-
-BDO bør tilby SMB-kunder et standardisert 12-ukers AI Sprint som tar dem fra usikkerhet til dokumentert forretningsverdi med KI.
-
-Dette er kjernen. Alt i nettsiden skal støtte dette.
-
-Strategisk vinkel
-
-Vi skal ikke presentere en generell KI-strategi. Vi skal presentere et repeterbart tjenestekonsept for øvre SMB-segment.
-
-Tjenestekonsept
-
-Velg ett navn og bruk det konsekvent:
-
-BDO AI Sprint
-
-BDO KI-løftet
-
-Anbefalt: BDO AI Sprint
-
-Hva BDO faktisk selger
-
-BDO selger ikke teknologi i seg selv. BDO selger:
-
-prioritering
-
-trygg implementering
-
-raske piloter
-
-styring og skalering
-
-målbar gevinst
-
-Kjernepåstand
-
-For SMB er problemet ikke tilgang til KI. Problemet er:
-
-hvor de skal starte
-
-hvilke brukscaser de skal velge
-
-hvordan de reduserer risiko
-
-hvordan de dokumenterer verdi
-
-BDOs rolle er å lukke dette gapet.
-
-Tenkt kunde
-
-Bruk én konkret casekunde og bygg hele fortellingen rundt den.
-
-Kundeprofil: Nordform AS
-
-norsk SMB-bedrift
-
-ca. 220 ansatte
-
-ca. 280 MNOK i omsetning
-
-B2B handel/distribusjon
-
-bruker Microsoft 365, ERP og CRM
-
-lav til moderat digital modenhet
-
-høy andel manuelle prosesser
-
-ledelsen er positiv til KI, men usikker på gevinst, risiko og prioritering
-
-ingen tydelig KI-policy eller styringsmodell
-
-Dette skal eksplisitt vises som våre egne forutsetninger.
-
-Struktur på nettsiden
-
-Nettsiden skal bestå av tydelige fullskjermsseksjoner med hard visuell kontrast mellom hver seksjon. Hver seksjon skal leses som en slide, ikke som en vanlig nettside.
-
-1. Åpning / Hero
-
-Formål: juryen skal forstå anbefalingen umiddelbart.
-
-Innhold:
-
-Stor tittel:
-“Hvordan kan BDO hjelpe SMB-er å skape verdi med KI – uten å øke risikoen?”
-
+Lag en profesjonell, fullskjerms presentasjons-nettside for en case competition i NM i økonomi. Nettsiden skal fungere som en konsulentpresentasjon i Nordea-stil, og være laget for laget «Økonoobs».
+ 
+Målet er å løse den mest sannsynlige casen fra research-rapporten:
+Hvordan kan Nordea i Norge øke antall «relationship customers» og øke produktbredde per kunde i privatmarkedet, særlig blant boliglånskunder som ikke bruker Nordea som hovedbank?
+ 
+Viktig:
+- Nettsiden skal være laget for presentasjon direkte på skjerm, uten scrolling
+- Hver slide/side skal fylle hele skjermen i 1980x1080-format
+- Det skal være mulig å navigere ved å trykke på en toppmeny øverst
+- Det skal også være tydelig «Neste slide»-knapp øverst til høyre
+- Gjerne støtte piltaster høyre/venstre
+- Alt innhold må være visuelt stramt, profesjonelt og lett å presentere muntlig
+- Hver slide må ha lite tekst, tydelige overskrifter, sterke poenger og visuelt pene bokser/grafer/ikoner
+- Designet skal ligne en moderne konsulentpresentasjon, med ren layout, høy troverdighet og premium bank-følelse
+- Bruk Nordea-inspirerte farger: mørk blå som hovedfarge, lyse blå nyanser, hvit bakgrunn, diskrete kontrastflater
+- Unngå flashy startup-stil, dette skal se ut som en kombinasjon av Nordea + McKinsey/BCG-stil
+- Bruk profesjonell typografi, mye luft, tydelig hierarki og pen spacing
+- Lag gjerne diskrete animasjoner mellom slides, men hold det elegant
+- Ikke lag en vanlig nettside med scrolling. Dette skal være en slide-basert presentasjons-webapp
+ 
+Nettsiden skal løse et faktisk forretningsproblem og bygge på fakta fra research-rapporten under. Bruk disse faktaene aktivt i innholdet. Ikke finn på andre tall. Hvis du bruker antakelser i business caset, merk dem tydelig som «illustrative assumptions».
+ 
+Fakta fra research-rapporten som må brukes:
+1. Nordea har pekt ut Norge som et tydelig vekstområde i strategien 2026–2030
+2. Cross-sales er en eksplisitt strategisk prioritet
+3. Banken har kommunisert mål om +500.000 flere relationship customers
+4. Relationship customers er definert som kunder med lønnskonto, aktive kort og boliglån og/eller sparing
+5. I Personal Banking er inntektsmiksen omtrent:
+   - innskudd ca. 34%
+   - boliglån ca. 21%
+   - sparing ca. 19%
+   - betaling/annet ca. 25%
+6. Nordea ønsker å øke fee and commission-vekst gjennom sparing, rådgivning og betaling, ikke bare lån
+7. I Norge rapporterte Personal Banking i Q4 2025:
+   - innskuddsvolumer opp 10%
+   - utlånsvolumer opp 1%
+   - gebyr/provisjon opp 14%, drevet av sparing og betaling/kort
+8. Nordea har mål om best omnichannel customer experience
+9. Digitale salg var rundt 70% i 2025, med ambisjon om over 80%
+10. Banken satser tungt på teknologi, data og AI
+11. Nova Chatbot hadde 5,2 millioner chatter, og rundt 78% ble håndtert av chatboten
+12. Produktivitetsverktøy med AI hadde over 18.000 brukere innen utgangen av 2025
+13. AI brukes også i KYC og transaksjonsovervåking
+14. Banken guider mot ROE over 15% og cost-to-income rundt 45% for 2026, og 40–42% innen 2030
+15. Oppkjøpet av Danske Banks personkunde- og private banking-virksomhet i Norge tilføyde omtrent 235.000 kunder
+16. Nordea Liv er en viktig kryss-salgsmotor innen pensjon og liv
+17. Nordea Liv har sterk posisjon i selvvalgt EPK og høy vekst i livsforsikring
+18. Det mest sannsynlige caset er å gjøre boliglånskunder uten dagligbankforhold til helkunder
+ 
+Nettsiden skal ha en tydelig storyline:
+Problem → hvorfor det betyr noe → hvilket segment vi velger → løsning → hvordan det gjennomføres → hvorfor det er lønnsomt → KPI-er → risiko og avslutning.
+ 
+Bygg presentasjonen rundt denne anbefalte løsningen:
+Nordea skal prioritere boliglånskunder som ikke har lønnskonto og aktiv kortbruk hos Nordea, og gjøre dem til relationship customers gjennom en smart, digital og AI-støttet kundereise.
+ 
+Løsningen skal presenteres som en kundeverdi-strategi, ikke aggressivt kryss-salg. Budskapet skal være:
+«Nordea skal vinne hverdagsbanken, ikke bare boliglånet.»
+ 
+Anbefalt struktur på slides:
+Slide 1:
+En sterk forside med tittel, undertittel og lagnavn «Økonoobs»
+Tittelforslag:
+«From Mortgage Provider to Main Bank»
 Undertittel:
-“Vår anbefaling: et standardisert 12-ukers AI Sprint som tar kunden fra usikkerhet til dokumentert effekt.”
-
-Tre korte executive-summary-punkter:
-
-SMB-er mangler struktur, ikke teknologi
-
-BDO kan eie rollen mellom strategi og gjennomføring
-
-verdi skapes gjennom piloter, styring og skalering
-
-Krav:
-
-ekstremt sterk first impression
-
-én tydelig CTA: “Se anbefalingen”
-
-ingen støy
-
-2. Problemet
-
-Formål: etablere hvorfor dette er et reelt og lønnsomt problem å løse.
-
-Overskrift:
-“Utfordringen er ikke om KI finnes – men hvordan SMB faktisk tar det i bruk”
-
-Vis 4 problemer:
-
-use cases prioriteres ikke godt nok
-
-implementering stopper i usikkerhet
-
-risiko rundt data og kvalitet bremser fremdrift
-
-gevinster blir ikke tydelig nok målt
-
-Visual:
-
-enkel “før-situasjon”
-
-fragmenterte systemer
-
-manuelle prosesser
-
-lav beslutningsklarhet
-
-Denne seksjonen skal være mørk, stram og analytisk.
-
-3. Hvorfor BDO
-
-Formål: vise hvorfor akkurat BDO bør vinne denne rollen.
-
-Overskrift:
-“BDO har rett til å eie denne posisjonen”
-
-Tre korte søyler:
-
-Strategisk fit – teknologi og fremtidsrettede tjenester er riktig retning
-
-Kundebehov – SMB trenger en trygg, pragmatisk partner
-
-Leveranseevne – BDO kan kombinere strategi, økonomi, risiko og implementering
-
-Legg inn en enkel posisjoneringsgrafikk som viser BDO mellom:
-
-strategihus
-
-teknologileverandør
-
-systemintegrator
-
-Poenget skal være:
-BDO kan oversette KI til forretningsverdi raskere og tryggere enn mer rendyrkede aktører.
-
-4. Den tenkte kunden
-
-Formål: gjøre løsningen konkret og troverdig.
-
-Overskrift:
-“Nordform AS: typisk SMB med høyt potensial og lav modenhet”
-
-Vis:
-
-selskapsprofil
-
-smertepunkter
-
-målbildet
-
-Smertepunkter:
-
-treg kundeservice
-
-manuell rapportering
-
-ineffektiv tilbudsprosess
-
-intern kunnskap er lite tilgjengelig
-
-Mål:
-
-høyere produktivitet
-
-bedre beslutningsgrunnlag
-
-jevnere kundeopplevelse
-
-trygg KI-innføring
-
-5. Løsningen: BDO AI Sprint
-
-Dette er hovedseksjonen og skal være den visuelt sterkeste delen av nettsiden.
-
-Overskrift:
-“Vår løsning: et 12-ukers AI Sprint i fire faser”
-
-Lag en tydelig 4-fasemodell:
-
-1. Diagnose
-
-intervjuer
-
-prosesskartlegging
-
-modenhetsanalyse
-
-datarisiko
-
-output: potensialkart
-
-2. Prioritering
-
-velg 3–5 brukscaser
-
-vurder verdi, risiko og gjennomførbarhet
-
-output: prioritert portefølje
-
-3. Pilot
-
-test 1–2 brukscaser
-
-mål effekt
-
-etabler enkel styring
-
-output: dokumentert gevinst
-
-4. Skalering
-
-governance
-
-opplæring
-
-KPI-er
-
-roadmap 6–12 måneder
-
-output: skaleringsplan
-
-Krav:
-
-timeline eller roadmap
-
-tydelig fase for fase
-
-hver fase skal være lett å presentere på 30–40 sekunder
-
-6. Prioriterte brukscaser
-
-Formål: vise konkret innhold, ikke bare metode.
-
-Overskrift:
-“Tre brukscaser med høy verdi og lav til moderat kompleksitet”
-
-Velg og ranger disse:
-
-1. KI-assistert kundeservice
-
-svarutkast
-
-raskere responstid
-
-jevnere kvalitet
-
-human-in-the-loop
-
-2. Automatisert intern rapportering
-
-oppsummering av økonomi- og salgsdata
-
-raskere månedsrapport
-
-mindre manuelt arbeid
-
-bedre beslutningsgrunnlag
-
-3. Tilbuds- og salgsstøtte
-
-førsteutkast til tilbud
-
-oppsummering av kundehistorikk
-
-raskere tilbudsprosess
-
-Presenter dem i en 2x2-matrise:
-
-x-akse: implementerbarhet
-
-y-akse: forretningsverdi
-
-Konklusjon:
-
-brukscase 1 og 2 piloteres først
-
-brukscase 3 kommer i neste bølge
-
-7. Gevinst og økonomi
-
-Formål: vise at løsningen er kommersielt attraktiv.
-
-Overskrift:
-“Verdien kommer raskt – uten full transformasjon fra dag én”
-
-Bruk realistiske estimater:
-
-15–25 % tidsbesparelse i repetitive prosesser
-
-20–30 % raskere responstid i kundeservice
-
-30–50 % raskere førsteutkast i rapportering og tilbud
-
-Vis:
-
-investering i sprinten
-
-forventet årlig gevinst
-
-payback
-
-kvalitative gevinster:
-
-læring
-
-styring
-
-endringskapasitet
-
-skalerbarhet
-
-Denne seksjonen skal være lysere enn forrige, slik at økonomibildet oppleves som et nytt tydelig kapittel.
-
-8. Risiko og ansvarlig KI
-
-Formål: øke troverdigheten.
-
-Overskrift:
-“Trygg innføring er en del av løsningen – ikke et tillegg”
-
-Risiko:
-
-datasikkerhet
-
-feil og hallusinasjoner
-
-uklart eierskap
-
-lav brukeradopsjon
-
-omdømmerisiko
-
-Tiltak:
-
-avgrensede piloter
-
-human-in-the-loop
-
-enkel KI-policy
-
-rolleavklaringer
-
-opplæring
-
-KPI-oppfølging
-
-Vis dette som en tydelig venstre/høyre-struktur:
-
-risiko
-
-tiltak
-
-Tonen skal være kontrollert og trygg, ikke defensiv.
-
-9. Hvorfor vår løsning vinner
-
-Formål: samle argumentet før avslutning.
-
-Tre store statement-cards:
-
-Konkret – tydelig modell, ikke bare strategi
-
-Trygg – gevinst og kontroll samtidig
-
-Skalerbar – kan repeteres på tvers av SMB-kunder
-
-Dette skal være kort, hardt og presentasjonsvennlig.
-
-10. Avslutning
-
-Stor sluttslide med høy kontrast.
-
-Overskrift:
-“BDO bør ikke selge KI. BDO bør selge trygg verdiskaping med KI.”
-
-Undertittel:
-“Et standardisert AI Sprint gir SMB-kunder raskere gevinst, lavere risiko og en tydelig vei til skalering.”
-
-Tre sluttpunkter:
-
-velg riktige brukscaser
-
-skap tidlig dokumentert effekt
-
-bygg styring før skalering
-
-Knapp:
-“Tilbake til toppen”
-
-Designkrav
-Stil
-
-premium
-
-mørk og moderne
-
-høy kontrast
-
-ryddig og disiplinert
-
-ingen dashboard-estetikk
-
-ingen studentprosjekt-følelse
-
-Viktigste grep
-
-Hver seksjon må ha tydelig egen identitet. Øk kontrasten mellom seksjonene gjennom:
-
-skifte i bakgrunnstoner
-
-tydeligere seksjonsovergang
-
-store overskrifter
-
-mer luft
-
-visuell “slide-følelse”
-
-Farger
-
-charcoal / mørk marine som base
-
-off-white tekst
-
-dyp rød/rustrød accent
-
-dempede gråtoner
-
-en lys kontrastflate i enkelte seksjoner for rytme
-
-Typografi
-
-stor display-font i overskrifter
-
-ren sans-serif i brødtekst
-
-optimalisert for projektor og presentasjon
-
-Bevegelse
-
-subtile scroll-animasjoner
-
-fade og slide-in
-
-null overdesign
-
-animasjon skal hjelpe orientering
-
-Funksjonelle krav
-
-Bygg dette som en ferdig frontend.
-
-Teknologi
-
-Bruk:
-
-Next.js
-
-React
-
-TypeScript
-
-Tailwind CSS
-
-Framer Motion
-
-Funksjoner
-
-sticky navigasjon
-
-markering av aktiv seksjon
-
-smooth scroll
-
-fullskjerms eller nesten fullskjerms seksjoner
-
-høy ytelse
-
-enkel lokal kjøring
-
-Komponenter
-
-Lag minst disse:
-
-HeroSection
-
-StickyNav
-
-SectionWrapper
-
-Roadmap
-
-UseCaseMatrix
-
-ROIBlock
-
-RiskMatrix
-
-FinalSlide
-
-Innholdskrav
-
-alt innhold skal være på norsk
-
-teksten skal være kortere, skarpere og lettere å presentere live
-
-unngå floskler og buzzord
-
-hver seksjon skal kunne forstås på få sekunder
-
-Hver seksjon må svare på ett spørsmål:
-
-hva er problemet?
-
-hvorfor BDO?
-
-hvem er kunden?
-
-hva er løsningen?
-
-hvor er verdien?
-
-hvordan håndteres risiko?
-
-hvorfor vinner dette?
-
-Viktig live-føring
-
-Denne nettsiden skal brukes foran en jury. Optimaliser derfor for:
-
-store overskrifter
-
-få, harde hovedpoenger
-
-tydelig seksjonsrytme
-
-rask orientering
-
-høy lesbarhet på avstand
-
-Nettsiden må føles som en presentasjon, ikke som lesestoff.
-
-Det du skal levere
-
-Lever en komplett løsning:
-
-komplett prosjektstruktur
-
-alle nødvendige filer
-
-ferdig innhold i seksjonene
-
-ferdig styling
-
-ferdig navigasjon
-
-animasjoner
-
-tydelig lokal oppstartsbeskrivelse
-
-I tillegg:
-
-forklar kort prosjektstrukturen
-
-pek ut hvilke filer som er viktigst å redigere
-
-gjør det enkelt å justere tekst før finalen
-
-Ikke gjør dette
-
-ikke lag en generisk landingsside
-
-ikke lag et dashboard
-
-ikke gjør seksjonene teksttunge
-
-ikke bruk tilfeldige illustrasjoner
-
-ikke vær vag i anbefalingen
-
-ikke gjør designet flatt eller anonymt
-
-Oppsummering
-
-Bygg en nettside som selger inn denne påstanden:
-
-BDO kan vinne i SMB-markedet ved å tilby et standardisert AI Sprint som hjelper kunder å identifisere, pilotere og skalere KI med rask gevinst og kontrollert risiko.
-
-Nettsiden skal være så skarp at den kan brukes direkte i konkurransen.
-
-En ekstra forbedring før dere limer dette inn i Claude: legg til én siste linje nederst:
-
-“Prioriter tydelig seksjonskontrast, kort presentasjonstekst og sterk slide-følelse i alle deler av løsningen.”
+«How Nordea can grow relationship customers in Norway through smarter cross-sell, digital journeys and AI-enabled personalization»
+Vis Nordea-inspirert premium design
+ 
+Slide 2:
+Problemet og hvorfor det haster
+Vis at mange boliglånskunder ikke bruker Nordea som hovedbank
+Knytt dette til Grow Norway, cross-sales og relationship customer-målet
+Vis kort hvorfor kun boliglån ikke er nok i et miljø med fallende renter
+ 
+Slide 3:
+Hvor pengene ligger
+Lag en pen visualisering av inntektsmiksen:
+innskudd 34%, boliglån 21%, sparing 19%, betaling/annet 25%
+Forklar med få ord hvorfor bredere relasjon gir mer robust lønnsomhet enn bare lån
+ 
+Slide 4:
+Segmentvalg
+Velg segmentet:
+«Boliglånskunder uten lønnskonto og aktiv kortbruk hos Nordea»
+Vis hvorfor dette segmentet er mest attraktivt:
+- høy varighet
+- høy CLV
+- lett å identifisere i data
+- høy oppside i innskudd, kort, sparing og pensjon
+Ta gjerne med en mindre sideboks om at deler av Danske-migrasjonen kan ligge i dette segmentet
+ 
+Slide 5:
+Løsningen som kundereise
+Vis en tydelig 4-trinns modell:
+1. Få lønnskonto inn i Nordea
+2. Aktivere kort og betaling
+3. Starte månedlig sparing
+4. Flytte EPK / tilby pensjon og relevant livsforsikring
+Denne sliden må være veldig visuelt sterk, som en horisontal journey eller trappemodell
+Poenget er at Nordea gir én relevant anbefaling av gangen, med riktig timing
+ 
+Slide 6:
+Omnikanalmodellen
+Vis hvordan løsningen gjennomføres i praksis:
+- app som primær kanal
+- sømløs overgang til rådgiver ved høyverdihendelser
+- service-to-sales
+- mobile-first
+- digital completion
+Knytt dette til at Nordea vil over 80% digitalt salg og samtidig styrke rådgiverrollen
+ 
+Slide 7:
+Data og AI
+Vis en moden, realistisk AI-modell i 3 nivåer:
+1. Regelbasert segmentering
+2. Next best action i CRM
+3. AI-assistenter som frigjør rådgivertid
+Knytt dette til fakta:
+Nova chatbot, AI-bruk i kundeservice, KYC, transaksjonsovervåking og interne verktøy
+Legg inn et lite element om guardrails og trusted AI
+ 
+Slide 8:
+Business case og KPI-er
+Lag en enkel, konsulentaktig business case med tydelig disclaimer om illustrative assumptions
+Bruk følgende illustrative assumptions:
+- målgruppe: 100.000 boliglånskunder uten primærbankstatus
+- 10% konvertering til relationship customers på 12 måneder
+- 75.000 NOK i ekstra innskudd per konvertert kunde
+- 0,8% netto årlig innskuddsmargin
+- 400 NOK netto per år fra aktiv kort/betalingsbruk
+- 30% av de konverterte setter opp sparing/pensjon
+- 600 NOK årlig netto fee per slik kunde
+Vis regnestykket pent:
+Innskudd: 60 MNOK
+Kort/betaling: 4 MNOK
+Sparing/pensjon: 1,8 MNOK
+Totalt: ca. 66 MNOK før gjennomføringskostnader
+Vis også KPI-er:
+- number of relationship customers
+- products per customer
+- salary inflow share
+- active card rate
+- savings plan penetration
+- cost-to-serve
+- digital completion rate / customer satisfaction
+ 
+Slide 9:
+Risiko, styring og avslutning
+Vis 3 hovedrisikoer:
+- friksjon i lønnskonto-bytte
+- irrelevante tilbud som svekker tillit
+- for aggressiv bruk av AI/personalisering
+Vis mottiltak
+Avslutt med en sterk anbefaling:
+«Win the salary account. Win the everyday banking. Then scale savings and pensions.»
+ 
+Ekstra designkrav:
+- Toppmeny med alle slides som faner
+- Aktiv slide skal være tydelig markert
+- Egen «Next» knapp øverst
+- Hver slide skal ha tydelig slide-tittel og ett hovedpoeng
+- Bruk pene kort, enkle diagrammer, prosessillustrasjoner og KPI-bokser
+- Ikke bruk for mye tekst
+- Lag innholdet som om det faktisk skal presenteres muntlig på 8 minutter
+- Sørg for at hver slide kan forstås på 20–30 sekunder
+- Bruk konsulentaktig språk, men enkelt og klart
+- Ingen scrolling
+- Hele løsningen skal føles som en profesjonell presentasjonswebapp, ikke en vanlig hjemmeside
+ 
+Teknisk ønsket output:
+- Lag dette som en komplett, fungerende, slide-basert webapp
+- Responsiv nok til å fungere på stor skjerm, men optimalisert for 1980x1080 presentasjon
+- Gjerne laget i React med clean komponentstruktur
+- Bruk moderne frontend-praksis
+- Rene overganger, premium look
+- Ingen behov for backend
+- Ingen dummy-tekst
+- Alt innhold skal være ferdig skrevet og klart til bruk
+ 
+Viktig:
+- Ikke lag en generell bankpresentasjon
+- Løs det konkrete problemet
+- Bygg alt rundt Nordea sin faktiske strategi og tallene over
+- Det skal være troverdig nok til å imponere en jury i NM i økonomi
