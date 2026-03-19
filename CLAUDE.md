@@ -47,3 +47,9 @@ På dagen vil du få:
 - Prioriter det som gir mest inntrykk: sterke visualiseringer, tydelig narrativ, og polert design
 - Nettsiden skal kunne fungere som støtte under den muntlige presentasjonen, den skal fungere like bra på PC, presentasjonsskjermen og mobilen til de i salen
 - Codex og Gemini kommer til å dobbelsjekke all kode så gjør alt skikkelig så slipper vi å finne ut at en av de modellene er bedre enn deg.
+
+## Arkitektur og struktur
+- Bygg nettsiden som et fullstendig flerside-prosjekt med tydelig mappestruktur — aldri én enkelt HTML-fil
+- Separer HTML, CSS og JavaScript i egne filer og mapper
+- Lag flere navigerbare sider (f.eks. forside, analyse, løsningsforslag, om laget) med en gjennomgående navbar og footer
+- Nettsiden skal føles som et ekte produkt man kan klikke rundt i, ikke en enkeltstående landingsside
