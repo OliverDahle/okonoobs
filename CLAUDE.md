@@ -33,6 +33,7 @@ Nettsiden er en del av lagets leveranse og presentasjon. Den skal:
 - **Full frihet:** Velg teknologi, struktur og arkitektur fritt. Vanilla HTML/CSS/JS, React, Vue, Vite, Tailwind — hva som helst fungerer. Eneste krav er at `dist/` inneholder det ferdige resultatet. Hvis du bruker et framework med build-steg, sett opp `package.json` med `npm run build` som outputter til `dist/`.
 - **Node.js 20** er tilgjengelig i CI-miljøet
 - **Ingen backend** — kun statisk output (men du kan bruke eksterne API-er og CDN-er fritt)
+- **Ikke endre CLAUDE.md** da denne skal være statisk gjennom utviklingen
 
 ## Hva som vil bli gitt på konkurransedagen
 På dagen vil du få:
@@ -45,3 +46,4 @@ På dagen vil du få:
 - Lag noe som ser ut som det er laget av profesjonelle, ikke studenter
 - Prioriter det som gir mest inntrykk: sterke visualiseringer, tydelig narrativ, og polert design
 - Nettsiden skal kunne fungere som støtte under den muntlige presentasjonen, den skal fungere like bra på PC, presentasjonsskjermen og mobilen til de i salen
+- Codex og Gemini kommer til å dobbelsjekke all kode så gjør alt skikkelig så slipper vi å finne ut at en av de modellene er bedre enn deg.
