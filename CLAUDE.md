@@ -8,12 +8,11 @@ NM i Økonomi er Norges største casekonkurranse for økonomistudenter. Finalen 
 Konkurransen tester faglig bredde innen økonomisk-administrative fag, evne til å anvende teori på reelle problemstillinger, presentasjonsevne, samarbeid under tidspress, og analytisk tenkning.
 
 ## Om denne nettsiden
-Nettsiden er selve presentasjonen. Den er ikke et tilleggsprodukt eller supplement til den muntlige presentasjonen, men det primære visuelle mediet laget bruker for å kommunisere casen. Den skal:
-- Være den visuelle bæreren av hele case-løsningen
-- Vises på presentasjonsskjermen mens laget presenterer muntlig
-- Være tilgjengelig for jury, publikum og samarbeidspartnere på https://økonoobs.no
-- Demonstrere lagets evne til å kommunisere komplekse økonomiske konsepter visuelt og digitalt
-- Imponere og engasjere, dette er en konkurranse, og nettsiden skal skille oss ut, dette er X faktoren vår
+Nettsiden er en MVP-prototype av den teknologiske løsningen laget foreslår i casen. Presentasjonen skjer via PowerPoint, men nettsiden fungerer som et levende bevis på at løsningen kan bygges. Juryen skanner en QR-kode fra PowerPoint-en og ser en fungerende prototype direkte på mobilen sin. Den skal:
+- Demonstrere løsningen som et ekte produkt, ikke en mockup
+- Se ut og fungere som en ferdig app eller nettjeneste rettet mot forbrukere
+- Være tilgjengelig for jury og publikum på https://økonoobs.no
+- Imponere ved å vise gjennomføringskraft, det er X-faktoren vår
 
 ## Målgruppe
 - **Jury:** Erfarne økonomer og ledere fra Nordea, BDO, Söderberg & Partners og E24. De forventer faglig substans, presise analyser, og profesjonell presentasjon.
@@ -21,21 +20,23 @@ Nettsiden er selve presentasjonen. Den er ikke et tilleggsprodukt eller suppleme
 - **Samarbeidspartnere:** Potensielle fremtidige arbeidsgivere som vurderer kandidater.
 
 ## Tone og stil
-- Profesjonell, men ikke kjedelig. Vi heter Økonoobs, det er lov å ha personlighet
-- Faglig troverdig. Vis at vi kan stoffet
-- Visuelt engasjerende. Grafer, visualiseringer og interaktive elementer fremfor vegger av tekst
+- Profesjonell, den skal imitere ett reelt produkt selskapet kunne ha distribuert.
+- Visuelt engasjerende. Bruk kreative elementer i nettsiden. Applikasjonen skal være en wow-faktor så bruk mye tid på kreative virkemidler.
 - Norsk språk gjennomgående (bokmål)
 - Bruk aldri em-dash (tegnet --) verken i kode, tekst eller kommentarer. Bruk punktum, komma eller ny setning i stedet
 - Bruk de norske bokstavene æ, ø, å, og skriv god profesjonell norsk
-- Bruk heller stikkord enn setninger, dette skal virke som en PowerPoint, bare programmert inn i en nettside
+- Skal se ut og føles som en ekte mobilapp, ikke en nettside eller PowerPoint
 
 ## Skjerm og lesbarhet
-- Siden vises på en storskjerm under presentasjon. Optimaliser for 16:9-format og 1920x1080.
-- Skriftstørrelser: brødtekst minimum 20px, stikkpunkter 22px, overskrifter (h2) 36px, hovedoverskrifter (h1) minimum 52px. Aldri under 18px noe sted.
-- Høy kontrast mellom tekst og bakgrunn. Tekst skal leses tydelig fra 5 meters avstand.
+- Primærformat er mobilskjerm (360-430px bredde). Design mobile-first.
+- På desktop og storskjerm skal innholdet vises sentrert i et mobilvindu (maks 430px bredt) med svart bakgrunn på sidene. Det skal se ut som en telefon vises på storskjermen.
+- Optionally: legg en tynn grå telefonramme (SVG eller CSS border-radius) rundt mobilvinduet på desktop for å forsterke illusjonen.
+- Skriftstørrelser for mobil: brødtekst minimum 16px, stikkpunkter 18px, overskrifter (h2) 24px, hovedoverskrifter (h1) minimum 32px. Aldri under 14px noe sted.
+- Høy kontrast mellom tekst og bakgrunn.
 - Ingen placeholder-tekst noe sted. Aldri "Lorem ipsum", "TODO", "data her", "eksempel" eller lignende. Hvis innhold mangler, spør.
-- Ingen generiske ikoner, clip-art eller stock-grafikk. Lag SVG-illustrasjoner eller bruk kun data-visualiseringer.
-- Alle tall i grafer og tabeller skal være faktiske verdier fra casen. Aldri eksempeltall eller fiktive data.
+- Ingen generiske ikoner, clip-art eller stock-grafikk. Bruk SVG-illustrasjoner eller data-visualiseringer.
+- Alle tall i grafer og tabeller skal være faktiske verdier fra casen. Unngå eksempeltall eller fiktive data.
+- Hvit hovedprofil med komplement av bedriftsspesifikke farger, se beskrivelse under for spesifikke farger.
 
 ## Teknisk oppsett
 - **Deploy:** Alt i `dist/`-mappen deployes automatisk til serveren via GitHub Actions ved push til `main`
@@ -49,29 +50,31 @@ Nettsiden er selve presentasjonen. Den er ikke et tilleggsprodukt eller suppleme
 
 ## Hva som vil bli gitt på konkurransedagen
 På dagen vil du få:
-- Selve caseoppgaven (tema, problemstilling, data)
-- Lagets analyse og løsningsforslag
-- Eventuelle tall, grafer eller datasett som skal visualiseres
-- Instruksjoner om hva nettsiden spesifikt skal inneholde og kommunisere
+- Selve caseoppgaven oppsummert (tema, problemstilling, data)
+- Lagets løsningsforslag og hvilken type teknologisk produkt vi anbefaler
+- Beskrivelse av hva appen/tjenesten skal gjøre og hvem den er for
+- Eventuelle tall, grafer eller datasett som skal visualiseres i appen
 
 ## Hva som forventes av deg
 - Lag noe som ser ut som det er laget av profesjonelle, ikke studenter
-- Prioriter det som gir mest inntrykk: sterke visualiseringer, tydelig narrativ, og polert design
-- Nettsiden er selve presentasjonen og skal fungere like bra på PC, presentasjonsskjermen og mobilen til de i salen
+- Prioriter polert mobildesign: appen skal se ferdig ut, ikke som en prototype
+- Ta kreative visuelle grep. Bruk animasjoner, gradienter, skygger, mikro-interaksjoner og overgangseffekter der det styrker inntrykket.
+- Alle sider skal se fullstendig bygget ut. Ingen tomme seksjoner, ingen uferdig layout, ingen halvferdige komponenter.
+- Juryen bruker 30-60 sekunder på å utforske appen. Den skal umiddelbart kommunisere hva produktet er og hvorfor det er bra.
 - Codex og Gemini kommer til å dobbelsjekke all kode så gjør alt skikkelig så slipper vi å finne ut at en av de modellene er bedre enn deg.
 
 ## Arkitektur og struktur
-- Bygg nettsiden som et fullstendig flerside-prosjekt med tydelig mappestruktur. Aldri én enkelt HTML-fil
+- Bygg som et flerside-prosjekt med tydelig mappestruktur. Aldri én enkelt HTML-fil
 - Separer HTML, CSS og JavaScript i egne filer og mapper
-- Lag flere navigerbare sider (f.eks. forside, analyse, løsningsforslag, om laget) med en gjennomgående navbar og footer
-- Hver slide i presentasjonen skal være en egen side, og det skal være en navigasjonsbar oppe hvor man alltid kan se hvor man er i presentasjonen, og trykke seg videre til neste slide/side
-- Nettsiden skal føles som et ekte produkt man kan klikke rundt i, ikke en enkeltstående landingsside
+- Strukturen skal gjenspeile appens skjermbilder/flyt, ikke presentasjonsslides
+- Navigasjon skal se ut som en mobilapp: bunnmeny, tabs, eller lignende appkonvensjoner
+- Nettsiden skal føles som et ekte produkt man kan klikke rundt i
 
-## Navigasjon og presentasjonsmodus
-- Tydelig pil for "forrige" og "neste" slide, alltid synlig, stor nok til å klikkes under stress
-- Progress-indikator øverst eller nederst: viser "Slide 3 av 8" eller punkter/streker som indikerer fremdrift
-- Tastaturnavigasjon: høyre/ned pil = neste slide, venstre/opp pil = forrige slide. Implementeres i JavaScript på alle slides.
-- Nåværende side er tydelig markert i navigasjonsbaren
+## Navigasjon og mobilapp-modus
+- Navigasjonen skal ligne en native app: bunnnavbar, hamburger-meny eller tabs, aldri en klassisk desktop-navbar
+- Touch-vennlige flater: knapper og klikkbare elementer minimum 44x44px
+- Overganger og animasjoner mellom sider skal føles som en app (f.eks. slide-in)
+- Alt innhold skal ligge innenfor det sentrerte mobilvinduet, aldri utenfor
 
 # Caseoppgave:
 <!-- Lim inn oppgaveteksten nøyaktig slik dere fikk den. Inkluder tema, problemstilling, bransje/selskap, og eventuelle data eller forutsetninger dere fikk oppgitt. -->
@@ -82,26 +85,74 @@ På dagen vil du få:
 # Vår løsning:
 <!-- Oppsummer løsningen i 3-5 hovedpunkter. Hvilke rammeverk eller teorier bruker dere (f.eks. SWOT, Porter, DCF, PESTEL)? Hva er konklusjonen og anbefalingen? -->
 
-# Slides:
-<!-- Fyll inn én seksjon per slide etter malen under. Legg til eller fjern slides etter behov. -->
+# Stilbeslutninger per bedrift
 
-## Slide 1:
-- **Tittel:**
-- **Budskap:** (det ene punktet denne sliden skal kommunisere)
-- **Innhold:** (stikkord som skal vises)
-- **Visualisering:** (type graf/figur, hvilke verdier/data som brukes)
-- **Talenotat:** (hva presentatøren sier her, hjelper modellen forstå kontekst)
+Tre mulige designprofiler er definert nedenfor. Velg én og slett de to andre før utvikling starter.
+Alle tre bruker hvit som hovedbakgrunn og bedriftsfargene som aksenter, primærknapper og navigasjonselementer.
 
-## Slide 2:
-- **Tittel:**
-- **Budskap:**
-- **Innhold:**
-- **Visualisering:**
-- **Talenotat:**
+---
 
-## Slide 3:
-- **Tittel:**
-- **Budskap:**
-- **Innhold:**
-- **Visualisering:**
-- **Talenotat:**
+## Designprofil: BDO
+
+**Fargepalett:**
+- Bakgrunn (primær): `#FFFFFF`
+- Primærfarge (rød): `#D02927`
+- Sekundærfarge (mørk blå): `#21409A`
+- Tekst (mørk): `#1A1A1A`
+- Tekst (sekundær): `#555555`
+- Flate/kort-bakgrunn: `#F5F5F5`
+- Border/skillelinje: `#E0E0E0`
+
+**Stil og visuelle grep:**
+- Røde primærknapper med hvit tekst, avrundede hjørner (8px radius)
+- Blå brukes på sekundære elementer, lenker og ikonaksentuering
+- Overskrifter i sterk rød eller mørk blå avhengig av hierarki
+- Bunnnavbar med rød aktiv-indikator
+- Kort og seksjoner med subtil skygge (`box-shadow: 0 2px 8px rgba(0,0,0,0.08)`)
+- Grafer bruker rød som primærfarge og blå som sammenligningsfarge
+- Typografi: sans-serif, gjerne Inter eller lignende. Tung overskriftsvekt (700)
+
+---
+
+## Designprofil: Nordea
+
+**Fargepalett:**
+- Bakgrunn (primær): `#FFFFFF`
+- Primærfarge (Nordea-blå): `#0000A0`
+- Aksent (lys blå): `#4040C0`
+- Tekst (mørk): `#1A1A1A`
+- Tekst (sekundær): `#555555`
+- Flate/kort-bakgrunn: `#F0F4FF`
+- Border/skillelinje: `#DADEEF`
+
+**Stil og visuelle grep:**
+- Dype blå primærknapper, hvit tekst, lett avrundede hjørner (6px radius)
+- Konsekvent bruk av én farge gir et rent og autoritativt uttrykk
+- Lyse blå kortbakgrunner skaper dybde uten støy
+- Bunnnavbar i mørk blå med hvite ikoner, hvit aktiv-indikator
+- Grafer bruker ulike nyanser av blå (100 til 900 skala)
+- Minimalistisk design med mye luft. Store tall og nøkkeltall fremhevet
+- Typografi: sans-serif, gjerne Inter eller lignende. Normal overskriftsvekt (600)
+
+---
+
+## Designprofil: Söderberg og Partners
+
+**Fargepalett:**
+- Bakgrunn (primær): `#FFFFFF`
+- Primærfarge (mørk blå): `#002D72`
+- Aksent (cyan): `#009FDF`
+- Sekundær aksent (korall): `#FF6380`
+- Tekst (mørk): `#332E30`
+- Tekst (sekundær): `#666666`
+- Flate/kort-bakgrunn: `#F5FAFD`
+- Border/skillelinje: `#D9EEF8`
+
+**Stil og visuelle grep:**
+- Mørk blå primærknapper med hvit tekst, avrundede hjørner (10px radius)
+- Cyan brukes på call-to-action-elementer, aktive tabs og grafer
+- Korall brukes sparsomt som oppmerksomhetsfarge (varsler, tags, highlights)
+- Bunnnavbar i mørk blå, cyan aktiv-indikator
+- Grafer bruker cyan som primærfarge og korall som kontrastfarge
+- Moderne, varm følelse grunnet korallinnslaget. Mer personlig enn de to andre
+- Typografi: sans-serif, gjerne Inter eller lignende. Overskriftsvekt 700, litt mer rundet
