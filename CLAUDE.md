@@ -49,6 +49,46 @@ Nettsiden er en MVP-prototype av den teknologiske løsningen laget foreslår i c
 - **Ikke endre CLAUDE.md** da denne skal være statisk gjennom utviklingen
 - **Vanilla HTML uten build-steg:** Hvis prosjektet ikke har `package.json`, skal workflow-en IKKE kjøre `npm ci` eller `npm run build`. GitHub Actions-workflowen håndterer dette automatisk: den kopierer kildefilene til `dist/` når det ikke finnes en `package.json`. Opprett aldri en tom eller dummy `package.json` bare for å tilfredsstille CI.
 
+## Claude API (valgfritt)
+
+Et ferdig oppsett for AI-funksjonalitet er klargjort og testet. Bruk det hvis løsningen har nytte av dynamisk AI-generert innhold, analyse eller chat.
+
+**Slik er det satt opp:**
+- API-nøkkelen er lagret som GitHub Secret (`ANTHROPIC_API_KEY`) og injiseres automatisk til `js/config.js` ved deploy. Filen committes aldri.
+- Modulen `js/claude-api.js` eksporterer to funksjoner: `spor()` for enkle kall og `sporStream()` for streaming token for token.
+- Modellen er `claude-opus-4-6` (sterkest tilgjengelig).
+
+**Slik brukes modulen i en HTML-fil:**
+
+```html
+<script src="/js/config.js"></script>
+<script type="module">
+  import { spor, sporStream } from '/js/claude-api.js';
+
+  // Enkelt kall, venter på hele svaret
+  const svar = await spor(
+    [{ role: 'user', content: 'Din melding her' }],
+    { system: 'Valgfri systemprompt her' }
+  );
+
+  // Streaming, oppdaterer DOM token for token
+  await sporStream(
+    [{ role: 'user', content: 'Din melding her' }],
+    (token, fullTekst) => { element.textContent = fullTekst; },
+    { system: 'Valgfri systemprompt her' }
+  );
+</script>
+```
+
+**Når bør du bruke det:**
+- Hvis appen har en AI-assistent, chatbot eller interaktiv analyseflate
+- Hvis du vil generere personalisert innhold basert på brukerinput
+- Hvis dere vil vise at produktet er AI-drevet og ikke statisk
+
+**Når bør du ikke bruke det:**
+- Hvis all informasjon er kjent på forhånd og kan hardkodes. Statisk innhold laster raskere og er mer pålitelig i en live-demo.
+- Ikke påkrev for at prototypen skal virke.
+
 ## Hva som vil bli gitt på konkurransedagen
 På dagen vil du få:
 - Selve caseoppgaven oppsummert (tema, problemstilling, data)
