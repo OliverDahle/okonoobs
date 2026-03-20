@@ -39,6 +39,7 @@ Nettsiden er en MVP-prototype av den teknologiske løsningen laget foreslår i c
 - Hvit hovedprofil med komplement av bedriftsspesifikke farger, se beskrivelse under for spesifikke farger.
 
 ## Teknisk oppsett
+- **Oppsett nå** Hele mappestrukturen er tom nå, så du har full frihet til å lage hele løsningen fra scratch
 - **Deploy:** Alt i `dist/`-mappen deployes automatisk til serveren via GitHub Actions ved push til `main`
 - **Hosting:** Nginx på Ubuntu-server med HTTPS
 - **Domene:** økonoobs.no

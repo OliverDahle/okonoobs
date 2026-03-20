@@ -1,0 +1,6 @@
+# Claude API-nokkel - aldri commit
+js/config.js
+
+# Bygg og avhengigheter
+dist/
+node_modules/

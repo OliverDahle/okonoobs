@@ -26,7 +26,15 @@ jobs:
         if: hashFiles('package.json') == ''
         run: |
           mkdir -p dist
-          rsync -a --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='dist' --exclude='CLAUDE.md' . dist/
+          rsync -a --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='dist' --exclude='CLAUDE.md' --exclude='js/config.local.js' . dist/
+
+      - name: Inject Claude API key
+        if: hashFiles('package.json') == ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          mkdir -p dist/js
+          echo "window.CLAUDE_API_KEY = '${ANTHROPIC_API_KEY}';" > dist/js/config.js
 
       - name: Deploy via rsync
         env:
