@@ -42,9 +42,10 @@ Nettsiden er selve presentasjonen. Den er ikke et tilleggsprodukt eller suppleme
 - **Hosting:** Nginx på Ubuntu-server med HTTPS
 - **Domene:** økonoobs.no
 - **Full frihet:** Velg teknologi, struktur og arkitektur fritt. Vanilla HTML/CSS/JS er å foretrekke da det er mest sikkert. Hva som helst fungerer. Eneste krav er at `dist/` inneholder det ferdige resultatet. Hvis du bruker et framework med build-steg, sett opp `package.json` med `npm run build` som outputter til `dist/`.
-- **Node.js 20** er tilgjengelig i CI-miljøet
+- **Node.js 24** er tilgjengelig i CI-miljøet. Bruk alltid node-version: '24' i GitHub Actions, ikke 20.
 - **Ingen backend.** Kun statisk output (men du kan bruke eksterne API-er og CDN-er fritt)
 - **Ikke endre CLAUDE.md** da denne skal være statisk gjennom utviklingen
+- **Vanilla HTML uten build-steg:** Hvis prosjektet ikke har `package.json`, skal workflow-en IKKE kjøre `npm ci` eller `npm run build`. GitHub Actions-workflowen håndterer dette automatisk: den kopierer kildefilene til `dist/` når det ikke finnes en `package.json`. Opprett aldri en tom eller dummy `package.json` bare for å tilfredsstille CI.
 
 ## Hva som vil bli gitt på konkurransedagen
 På dagen vil du få:
