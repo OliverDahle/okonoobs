@@ -118,42 +118,13 @@ På dagen vil du få:
 - Alt innhold skal ligge innenfor det sentrerte mobilvinduet, aldri utenfor
 
 # Caseoppgave:
-<!-- Lim inn oppgaveteksten nøyaktig slik dere fikk den. Inkluder tema, problemstilling, bransje/selskap, og eventuelle data eller forutsetninger dere fikk oppgitt. -->
+Utvikle en rask og overbevisende MVP som viser hvordan Nordea kan bruke kunstig intelligens til å gjøre sparing mer relevant, personlig og handlingsorientert for strategisk viktige kundegrupper. Løsningen skal ta utgangspunkt i at Nordea allerede sitter på kundedata, og demonstrere hvordan AI kan bruke disse dataene til å gi bedre spareråd, sterkere kundeopplevelse og høyere sannsynlighet for at kunden velger Nordea som sparepartner. MVP-en skal konkret vise hvordan en AI-tjeneste kan møte ulike behov i ulike livsfaser, og hvordan samme underliggende løsning kan tilpasses både unge kunder, kunder i etableringsfasen og eldre kunder med høy likviditet. Den skal også vise hvordan Nordea kan bruke AI til å flytte oppmerksomheten fra passiv kontoholdning og boliglån som hovedprodukt, til aktiv sparing og investering som en sentral del av kundeforholdet. Appen skal fungere som et proof of concept på AI-drevet sparerådgivning, der brukeren raskt får oppleve at banken forstår situasjonen deres og kan oversette økonomiske data til konkrete anbefalinger innenfor Nordeas egne produkter og tjenester.
 
 # Foreslått vinkling og problem:
-<!-- Beskriv hva dere valgte å fokusere på og hvorfor. Hva er kjerneproblemet dere løser? Hvilket narrativ binder presentasjonen sammen? -->
+Vår foreslåtte vinkling er at det største hinderet for økt sparing ikke først og fremst er mangel på penger, men mangel på trygghet, oversikt og personalisert veiledning. Mange kunder har midler tilgjengelig, men lar pengene stå passivt på konto fordi investering og sparing oppleves komplisert, risikofylt eller lite relevant for egen livssituasjon. Samtidig forventer kunder i dag enkle, intuitive og personlig tilpassede digitale opplevelser, også innen bank og sparing. Dette skaper et tydelig problem for Nordea: Banken har allerede mye kundedata, sterk rådgivningskompetanse og en bred produktportefølje, men må bruke dette bedre digitalt for å vinne nye sparekunder og styrke relasjonen til eksisterende kunder. Vinklingen vår er derfor at Nordea bør bruke AI til å gjøre eksisterende kundedata om til personlig, forståelig og situasjonstilpasset sparerådgivning i sanntid. I stedet for at kunden må forstå hele sparemarkedet selv, skal AI fungere som en intelligent inngang til Nordeas univers og forklare hvilke konkrete steg som er mest fornuftige akkurat nå, gitt alder, livsfase, likviditet, gjeld, inntektsnivå og mål. Dette treffer direkte casens krav om både bedre sparereise og høyere relevans, samtidig som det bygger på Nordeas posisjon som relasjonsbank: tillit, rådgivning og trygghet løftes inn i en digital AI-opplevelse. Problemet vi løser er dermed todelt: For kunden reduserer vi kompleksitet, beslutningsvegring og passivitet. For Nordea øker vi sannsynligheten for at kunden flytter penger fra konto til mer lønnsomme spare- og investeringsprodukter, samtidig som kundeopplevelsen forbedres og lojaliteten styrkes.
 
 # Vår løsning:
-<!-- Oppsummer løsningen i 3-5 hovedpunkter. Hvilke rammeverk eller teorier bruker dere (f.eks. SWOT, Porter, DCF, PESTEL)? Hva er konklusjonen og anbefalingen? -->
-
-# Stilbeslutninger per bedrift
-
-Tre mulige designprofiler er definert nedenfor. Velg én og slett de to andre før utvikling starter.
-Alle tre bruker hvit som hovedbakgrunn og bedriftsfargene som aksenter, primærknapper og navigasjonselementer.
-
----
-
-## Designprofil: BDO
-
-**Fargepalett:**
-- Bakgrunn (primær): `#FFFFFF`
-- Primærfarge (rød): `#D02927`
-- Sekundærfarge (mørk blå): `#21409A`
-- Tekst (mørk): `#1A1A1A`
-- Tekst (sekundær): `#555555`
-- Flate/kort-bakgrunn: `#F5F5F5`
-- Border/skillelinje: `#E0E0E0`
-
-**Stil og visuelle grep:**
-- Røde primærknapper med hvit tekst, avrundede hjørner (8px radius)
-- Blå brukes på sekundære elementer, lenker og ikonaksentuering
-- Overskrifter i sterk rød eller mørk blå avhengig av hierarki
-- Bunnnavbar med rød aktiv-indikator
-- Kort og seksjoner med subtil skygge (`box-shadow: 0 2px 8px rgba(0,0,0,0.08)`)
-- Grafer bruker rød som primærfarge og blå som sammenligningsfarge
-- Typografi: sans-serif, gjerne Inter eller lignende. Tung overskriftsvekt (700)
-
----
+Vår løsning er en enkel, interaktiv MVP-app som simulerer hvordan Nordea kan tilby AI-basert personlig sparerådgivning direkte i en mobilflate. Ved oppstart møter brukeren tre forhåndsdefinerte kundeprofiler som representerer ulike strategisk viktige livsfaser, med hardkodede bankdata som om de allerede var hentet fra Nordeas systemer. Profilene er: en ung student med høy kontantbeholdning på forbrukskonto og studielån, en voksen kunde i etablerings- og arbeidsfasen med høy inntekt og stort boliglån, og en eldre pensjonist med nedbetalt bolig og betydelig likvid kapital på ordinær konto. Dette gjør at juryen umiddelbart ser hvordan samme AI-løsning kan gi svært ulike anbefalinger basert på kundens situasjon, uten at brukeren må fylle inn store mengder informasjon manuelt. Etter valg av profil velger brukeren en rådgivningstone, for eksempel profesjonell finansrådgiver, analytisk og datadrevet, eller en mer uformell og energisk variant. Deretter skriver brukeren inn hva de ønsker hjelp til, for eksempel sparing til bolig, bedre avkastning, trygg plassering av kapital, buffer, pensjon eller generelle spørsmål om økonomiske prioriteringer. Appen sender så profilinformasjon, valgt tone og brukerens mål inn til Claude API, som genererer et personlig rådgivningssvar formulert som om Nordea aktivt hjelper kunden videre. Svaret skal være konkret, pedagogisk og handlingsrettet, og peke mot relevante løsninger innenfor Nordeas egne produkter, som fondssparing, buffersparing, pensjonsrelaterte sparegrep eller andre passende spareformer. Hensikten er ikke å bygge full finansiell rådgivning med regulatorisk dybde, men å demonstrere en troverdig og visuelt sterk MVP som viser hvordan AI kan gjøre sparing mer relevant, forståelig og salgsutløsende. Løsningen fungerer derfor både som kundeopplevelsesdemo og som strategisk bevis på at Nordea kan bruke AI til å aktivere eksisterende kundedata, skape mer personlig rådgivning og styrke sin posisjon i sparemarkedet. Så mye som mulig skal være hardkodet av promptene til claude api, det eneste som skal endres er hva kunden skriver inn. Det skal være hardkodet inn i promptsene hva de ulike profilene og tonene innebærer.
 
 ## Designprofil: Nordea
 
@@ -176,24 +147,3 @@ Alle tre bruker hvit som hovedbakgrunn og bedriftsfargene som aksenter, primærk
 - Typografi: sans-serif, gjerne Inter eller lignende. Normal overskriftsvekt (600)
 
 ---
-
-## Designprofil: Söderberg og Partners
-
-**Fargepalett:**
-- Bakgrunn (primær): `#FFFFFF`
-- Primærfarge (mørk blå): `#002D72`
-- Aksent (cyan): `#009FDF`
-- Sekundær aksent (korall): `#FF6380`
-- Tekst (mørk): `#332E30`
-- Tekst (sekundær): `#666666`
-- Flate/kort-bakgrunn: `#F5FAFD`
-- Border/skillelinje: `#D9EEF8`
-
-**Stil og visuelle grep:**
-- Mørk blå primærknapper med hvit tekst, avrundede hjørner (10px radius)
-- Cyan brukes på call-to-action-elementer, aktive tabs og grafer
-- Korall brukes sparsomt som oppmerksomhetsfarge (varsler, tags, highlights)
-- Bunnnavbar i mørk blå, cyan aktiv-indikator
-- Grafer bruker cyan som primærfarge og korall som kontrastfarge
-- Moderne, varm følelse grunnet korallinnslaget. Mer personlig enn de to andre
-- Typografi: sans-serif, gjerne Inter eller lignende. Overskriftsvekt 700, litt mer rundet
