@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0000A0" />
+  <title>Nordea AI Sparing - Rådgivning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+  <div class="app-ramme">
+    <div class="app-container">
+
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-tilbake" onclick="window.location.href='/profil.html'" aria-label="Tilbake">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </div>
+        <span class="header-tittel">AI Rådgivning</span>
+        <span class="header-chip" id="profil-chip" onclick="window.location.href='/profil.html'"></span>
+      </header>
+
+      <!-- Chat-layout (fyller plass mellom header og bunn-nav) -->
+      <div class="chat-layout">
+
+        <!-- Tone-velger -->
+        <div class="tone-velger" id="tone-velger">
+          <button class="tone-knapp aktiv" data-tone="profesjonell">Profesjonell</button>
+          <button class="tone-knapp" data-tone="analytisk">Analytisk</button>
+          <button class="tone-knapp" data-tone="uformell">Uformell</button>
+        </div>
+
+        <!-- Meldingsomrade -->
+        <div class="chat-omrade" id="chat-omrade">
+          <!-- Meldinger rendres av JS -->
+        </div>
+
+        <!-- Input-boks -->
+        <div class="chat-input-boks">
+          <textarea
+            class="chat-input"
+            id="chat-input"
+            placeholder="Spør om sparing, fond, pensjon..."
+            rows="1"
+          ></textarea>
+          <button class="chat-send" id="send-knapp" disabled aria-label="Send">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Bunnnavigasjon -->
+      <nav class="bunn-nav">
+        <div class="nav-element" data-side="hjem">
+          <svg class="nav-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span class="nav-tekst">Hjem</span>
+        </div>
+        <div class="nav-element" data-side="profil">
+          <svg class="nav-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="nav-tekst">Profil</span>
+        </div>
+        <div class="nav-element aktiv" data-side="chat">
+          <svg class="nav-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+          <span class="nav-tekst">Rådgivning</span>
+        </div>
+        <div class="nav-element" data-side="produkter">
+          <svg class="nav-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+          </svg>
+          <span class="nav-tekst">Produkter</span>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script type="module">
+    import { PROFILER, TONER, byggSystemprompt } from '/js/profiles.js';
+    import { hentState, lagreState, parseMd, hentTid, initNav } from '/js/app.js';
+    import { sporStream } from '/js/claude-api.js';
+
+    // Tilstand
+    const state = hentState();
+    const profil = PROFILER[state.profilId];
+
+    if (!profil) {
+      window.location.href = '/index.html';
+      throw new Error('Ingen profil valgt, navigerer til forsiden.');
+    }
+
+    let gjeldendeTone = state.tone || 'profesjonell';
+    // Historikk er i minnet, ikke localStorage, slik at den starter frisk
+    let historikk = [];
+    let erLaster = false;
+
+    // Profil-chip
+    document.getElementById('profil-chip').textContent = `${profil.navn.split(' ')[0]}, ${profil.alder}`;
+
+    // Tone-velger
+    const toneKnapper = document.querySelectorAll('.tone-knapp');
+    function settTone(toneId) {
+      gjeldendeTone = toneId;
+      lagreState({ tone: toneId });
+      toneKnapper.forEach((k) => k.classList.toggle('aktiv', k.dataset.tone === toneId));
+    }
+
+    toneKnapper.forEach((k) => {
+      k.addEventListener('click', () => settTone(k.dataset.tone));
+    });
+    settTone(gjeldendeTone);
+
+    // Input-logikk
+    const input = document.getElementById('chat-input');
+    const sendKnapp = document.getElementById('send-knapp');
+
+    input.addEventListener('input', () => {
+      sendKnapp.disabled = input.value.trim().length === 0 || erLaster;
+      // Auto-resize
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 110) + 'px';
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        if (!sendKnapp.disabled) sendMelding();
+      }
+    });
+
+    sendKnapp.addEventListener('click', sendMelding);
+
+    // Forhåndsdefinerte spørsmål per profil
+    const FORSLAG = {
+      emma: [
+        'Hvordan sparer jeg best til bolig?',
+        'Hva er BSU og bør jeg opprette det?',
+        'Kan jeg investere i fond med 2 600 kr i måneden?',
+      ],
+      andreas: [
+        'Bør jeg opprette IPS og hva sparer jeg i skatt?',
+        'Er det lurt å nedbetale boliglån raskere eller spare i fond?',
+        'Hva er forskjellen på ASK og vanlig fondskonto?',
+      ],
+      karin: [
+        'Hva bør jeg gjøre med 2,3 millioner på brukskonto?',
+        'Hvordan plasserer jeg formuen trygt med god avkastning?',
+        'Hva er Private Banking og passer det for meg?',
+      ],
+    };
+
+    // Legg til velkomstmelding
+    const omrade = document.getElementById('chat-omrade');
+
+    function leggTilMelding(avsender, innhold, erHtml = false) {
+      const div = document.createElement('div');
+      div.className = `chat-melding ${avsender}`;
+      const tid = hentTid();
+      const tidKlasse = avsender === 'bruker' ? 'hoyre' : '';
+
+      if (erHtml) {
+        div.innerHTML = `
+          <div class="melding-avsender">${avsender === 'ai' ? 'Nordea AI' : 'Deg'}</div>
+          <div class="melding-boble ${avsender}">${innhold}</div>
+          <div class="melding-tid ${tidKlasse}">${tid}</div>
+        `;
+      } else {
+        const tekst = document.createElement('div');
+        tekst.className = `melding-boble ${avsender}`;
+        tekst.textContent = innhold;
+
+        div.innerHTML = `<div class="melding-avsender">${avsender === 'ai' ? 'Nordea AI' : 'Deg'}</div>`;
+        div.appendChild(tekst);
+        div.insertAdjacentHTML('beforeend', `<div class="melding-tid ${tidKlasse}">${tid}</div>`);
+      }
+
+      omrade.appendChild(div);
+      scrollNed();
+      return div;
+    }
+
+    function scrollNed() {
+      requestAnimationFrame(() => {
+        omrade.scrollTop = omrade.scrollHeight;
+      });
+    }
+
+    function visLasteIndikator() {
+      const div = document.createElement('div');
+      div.className = 'laste-melding';
+      div.id = 'laste-indikator';
+      div.innerHTML = `
+        <div class="laste-boble">
+          <div class="laste-prikk"></div>
+          <div class="laste-prikk"></div>
+          <div class="laste-prikk"></div>
+        </div>
+      `;
+      omrade.appendChild(div);
+      scrollNed();
+    }
+
+    function fjernLasteIndikator() {
+      const ind = document.getElementById('laste-indikator');
+      if (ind) ind.remove();
+    }
+
+    // Velkomstmelding (hardkodet, ingen API-kall)
+    setTimeout(() => {
+      const velkomst = parseMd(profil.velkomstmelding);
+      leggTilMelding('ai', velkomst, true);
+
+      // Vis forslag-chips etter velkomstmelding
+      const forslag = FORSLAG[profil.id] || [];
+      if (forslag.length > 0) {
+        const forslagDiv = document.createElement('div');
+        forslagDiv.id = 'forslag-chips';
+        forslagDiv.style.cssText = 'display:flex; flex-direction:column; gap:8px; padding:4px 0 8px; animation: melding-inn 0.35s ease-out 0.15s both;';
+        forslagDiv.innerHTML = `
+          <div style="font-size:11px; font-weight:700; color:var(--tekst-dempet); text-transform:uppercase; letter-spacing:0.8px; padding: 0 2px;">Foreslåtte spørsmål</div>
+          ${forslag.map((s) => `
+            <button class="forslag-chip" data-tekst="${s.replace(/"/g, '&quot;')}"
+              style="text-align:left; padding:11px 14px; background:var(--hvit); border:1.5px solid var(--border); border-radius:var(--r-m); font-size:14px; color:var(--tekst-mork); cursor:pointer; transition:border-color 0.15s, background 0.15s; line-height:1.4;"
+            >${s}</button>
+          `).join('')}
+        `;
+        omrade.appendChild(forslagDiv);
+        scrollNed();
+
+        forslagDiv.querySelectorAll('.forslag-chip').forEach((chip) => {
+          chip.addEventListener('click', () => {
+            if (erLaster) return;
+            const tekst = chip.dataset.tekst;
+            input.value = tekst;
+            sendKnapp.disabled = false;
+            // Fjern forslag-chips
+            forslagDiv.remove();
+            sendMelding();
+          });
+
+          chip.addEventListener('mouseenter', () => {
+            chip.style.borderColor = 'var(--blaa)';
+            chip.style.background = 'var(--blaa-blek)';
+          });
+          chip.addEventListener('mouseleave', () => {
+            chip.style.borderColor = 'var(--border)';
+            chip.style.background = 'var(--hvit)';
+          });
+        });
+      }
+    }, 300);
+
+    async function sendMelding() {
+      const tekst = input.value.trim();
+      if (!tekst || erLaster) return;
+
+      // Vis bruker-melding
+      leggTilMelding('bruker', tekst);
+      input.value = '';
+      input.style.height = 'auto';
+      sendKnapp.disabled = true;
+      erLaster = true;
+
+      // Legg til i historikk
+      historikk.push({ role: 'user', content: tekst });
+
+      // Vis laste-indikator
+      visLasteIndikator();
+
+      try {
+        const system = byggSystemprompt(profil.id, gjeldendeTone);
+
+        // Opprett AI-melding-container
+        const aiDiv = document.createElement('div');
+        aiDiv.className = 'chat-melding ai';
+        const avsenderDiv = document.createElement('div');
+        avsenderDiv.className = 'melding-avsender';
+        avsenderDiv.textContent = 'Nordea AI';
+        const boble = document.createElement('div');
+        boble.className = 'melding-boble ai';
+
+        let fullTekst = '';
+
+        const fullSvar = await sporStream(
+          historikk,
+          (token, akkumulert) => {
+            fjernLasteIndikator();
+            if (!aiDiv.isConnected) {
+              aiDiv.appendChild(avsenderDiv);
+              aiDiv.appendChild(boble);
+              aiDiv.insertAdjacentHTML('beforeend', `<div class="melding-tid">${hentTid()}</div>`);
+              omrade.appendChild(aiDiv);
+            }
+            fullTekst = akkumulert;
+            boble.innerHTML = parseMd(akkumulert);
+            scrollNed();
+          },
+          { system, maxTokens: 800 }
+        );
+
+        // Siste oppdatering med komplett tekst
+        boble.innerHTML = parseMd(fullSvar || fullTekst);
+
+        // Legg til i historikk
+        historikk.push({ role: 'assistant', content: fullSvar || fullTekst });
+
+      } catch (feil) {
+        fjernLasteIndikator();
+        const feilTekst = feil.message?.includes('API_KEY')
+          ? 'Tjenesten er ikke tilgjengelig. API-nokkel mangler.'
+          : `Noe gikk galt. Prøv igjen om et øyeblikk. (${feil.message})`;
+
+        const feilDiv = document.createElement('div');
+        feilDiv.className = 'chat-melding ai';
+        feilDiv.innerHTML = `
+          <div class="melding-avsender">System</div>
+          <div class="feil-melding">${feilTekst}</div>
+        `;
+        omrade.appendChild(feilDiv);
+        scrollNed();
+
+        // Fjern den mislykkede meldingen fra historikk
+        historikk.pop();
+      }
+
+      erLaster = false;
+      sendKnapp.disabled = input.value.trim().length === 0;
+    }
+
+    initNav('chat');
+  </script>
+</body>
+</html>

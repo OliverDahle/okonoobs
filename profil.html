@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0000A0" />
+  <title>Nordea AI Sparing - Profil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+  <div class="app-ramme">
+    <div class="app-container">
+
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-tilbake" onclick="window.location.href='/index.html'" aria-label="Tilbake">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </div>
+        <span class="header-tittel">Min profil</span>
+        <span class="header-chip" id="bytt-knapp" onclick="window.location.href='/index.html'">Bytt profil</span>
+      </header>
+
+      <!-- Innhold -->
+      <main class="side-innhold">
+
+        <!-- Profil-hero -->
+        <div class="profil-hero" id="profil-hero">
+          <div class="profil-hero-avatar" id="profil-avatar">?</div>
+          <div class="profil-hero-info">
+            <div class="profil-hero-navn" id="profil-navn">Laster...</div>
+            <div class="profil-hero-livsfase" id="profil-livsfase"></div>
+            <div class="profil-hero-tag" id="profil-tag"></div>
+          </div>
+        </div>
+
+        <!-- Mulighets-banner -->
+        <div class="seksjon" style="padding-bottom: 12px;">
+          <div class="mulighet-banner" id="mulighet-banner">
+            <div class="mulighet-etikett">Nordea-innsikt</div>
+            <div class="mulighet-verdi" id="mulighet-verdi"></div>
+            <div class="mulighet-tekst" id="mulighet-tekst"></div>
+          </div>
+        </div>
+
+        <!-- Metrikk-grid -->
+        <div class="seksjon" style="padding-top: 4px; padding-bottom: 12px;">
+          <div class="seksjon-tittel">Finansiell oversikt</div>
+          <div class="metrikk-grid" id="metrikk-grid"></div>
+        </div>
+
+        <!-- Kapitalfordeling -->
+        <div class="seksjon" style="padding-top: 4px; padding-bottom: 16px;">
+          <div class="seksjon-tittel">Kapitalfordeling</div>
+          <div class="aktivdeling-bar" id="akt-bar">
+            <div class="aktivdeling-segment passiv" id="akt-passiv" style="width:100%"></div>
+          </div>
+          <div class="aktivdeling-forklaring" id="akt-forklaring"></div>
+        </div>
+
+        <!-- Detaljert informasjon -->
+        <div class="seksjon" style="padding-top: 4px; padding-bottom: 12px;">
+          <div class="seksjon-tittel">Detaljer</div>
+          <div class="info-liste" id="info-liste"></div>
+        </div>
+
+        <!-- Sparmål-seksjon (vises kun hvis malbelop er satt) -->
+        <div id="sparmaal-seksjon" class="seksjon" style="padding-top: 4px; padding-bottom: 12px; display:none;">
+          <div class="seksjon-tittel">Fremgang mot sparmål</div>
+          <div style="margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+              <span style="font-size:14px; color:var(--tekst-sek);" id="sparmaal-navn"></span>
+              <span style="font-size:14px; font-weight:600; color:var(--blaa);" id="sparmaal-prosent"></span>
+            </div>
+            <div class="fremgang-bar">
+              <div class="fremgang-fyll" id="sparmaal-bar" style="width:0%"></div>
+            </div>
+            <div class="fremgang-tekst">
+              <span id="sparmaal-gjeldende"></span>
+              <span id="sparmaal-maal"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Start-knapper -->
+        <div class="seksjon" style="padding-top: 8px; padding-bottom: 24px; display:flex; flex-direction:column; gap:10px;">
+          <button class="knapp-prim" onclick="window.location.href='/chat.html'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+            Start AI-rådgivning
+          </button>
+          <button class="knapp-sek" onclick="window.location.href='/produkter.html'">
+            Se Nordeas spareprodukter
+          </button>
+        </div>
+
+      </main>
+
+      <!-- Bunnnavigasjon -->
+      <nav class="bunn-nav">
+        <div class="nav-element" data-side="hjem">
+          <svg class="nav-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span class="nav-tekst">Hjem</span>
+        </div>
+        <div class="nav-element aktiv" data-side="profil">
+          <svg class="nav-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="nav-tekst">Profil</span>
+        </div>
+        <div class="nav-element" data-side="chat">
+          <svg class="nav-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+          <span class="nav-tekst">Rådgivning</span>
+        </div>
+        <div class="nav-element" data-side="produkter">
+          <svg class="nav-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+          </svg>
+          <span class="nav-tekst">Produkter</span>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script type="module">
+    import { PROFILER } from '/js/profiles.js';
+    import { hentState, formatKr, formatTall, animerTall, initNav } from '/js/app.js';
+
+    const state = hentState();
+    const profil = PROFILER[state.profilId];
+
+    if (!profil) {
+      window.location.href = '/index.html';
+    } else {
+      renderProfil(profil);
+      initNav('profil');
+    }
+
+    function renderProfil(p) {
+      const nd = p.nokkeldata;
+
+      // Hero
+      document.getElementById('profil-avatar').textContent = p.avatar;
+      document.getElementById('profil-hero').style.background =
+        `linear-gradient(145deg, ${p.farge} 0%, #4040C0 100%)`;
+      document.getElementById('profil-navn').textContent = `${p.navn}, ${p.alder} år`;
+      document.getElementById('profil-livsfase').textContent = p.livsfaseLang;
+      document.getElementById('profil-tag').textContent = p.sparmaal;
+
+      // Mulighets-banner
+      const banner = document.getElementById('mulighet-banner');
+      if (p.id === 'emma') {
+        document.getElementById('mulighet-verdi').textContent = '148 200 kr tjener ingenting';
+        document.getElementById('mulighet-tekst').textContent =
+          'Hele beløpet står passivt på brukskonto. Med BSU og fondssparing kan du nå boligmålet ditt år tidligere.';
+      } else if (p.id === 'andreas') {
+        document.getElementById('mulighet-verdi').textContent = '0 kr i IPS-fradrag hittil';
+        document.getElementById('mulighet-tekst').textContent =
+          'Som toppskattebetaler kan IPS gi deg inntil 20 000 kr tilbake i skatt hvert år. Pengene jobber fremdeles for deg.';
+      } else {
+        document.getElementById('mulighet-verdi').textContent = '~70 000 kr tapes årlig';
+        document.getElementById('mulighet-tekst').textContent =
+          'Med 3% inflasjon og 0% avkastning på brukskonto taper 2 340 000 kr rundt 70 000 kr i kjøpekraft hvert år.';
+      }
+
+      // Metrikk-grid
+      const grid = document.getElementById('metrikk-grid');
+      const metrikkData = lagMetrikkData(p);
+      grid.innerHTML = metrikkData.map((m) => `
+        <div class="metrikk-kort">
+          <div class="metrikk-etikett">${m.etikett}</div>
+          <div class="metrikk-verdi ${m.klasse || ''}" data-format="${m.erKr ? 'kr' : ''}"
+               data-maal="${m.verdi}">${m.erKr ? formatKr(0) : formatTall(0)}</div>
+          ${m.sub ? `<div class="metrikk-sub">${m.sub}</div>` : ''}
+        </div>
+      `).join('');
+
+      // Animer tall
+      grid.querySelectorAll('.metrikk-verdi[data-maal]').forEach((el) => {
+        const maal = parseFloat(el.dataset.maal);
+        if (maal) animerTall(el, maal, 1400);
+      });
+
+      // Kapitalfordeling
+      renderAktivdeling(p);
+
+      // Info-liste
+      const infoData = lagInfoData(p);
+      document.getElementById('info-liste').innerHTML = infoData.map((r) => `
+        <div class="info-rad">
+          <span class="info-etikett">${r.etikett}</span>
+          <span class="info-verdi ${r.klasse || ''}">${r.verdi}</span>
+        </div>
+      `).join('');
+
+      // Sparmål
+      if (p.malbelop) {
+        const seksjon = document.getElementById('sparmaal-seksjon');
+        seksjon.style.display = 'block';
+        const gjeldende = nd.brukskonto + nd.sparekonto + nd.fond;
+        const prosent = Math.min(Math.round((gjeldende / p.malbelop) * 100), 100);
+        document.getElementById('sparmaal-navn').textContent = p.sparmaal;
+        document.getElementById('sparmaal-prosent').textContent = `${prosent}%`;
+        document.getElementById('sparmaal-gjeldende').textContent = formatKr(gjeldende);
+        document.getElementById('sparmaal-maal').textContent = `Mål: ${formatKr(p.malbelop)}`;
+        setTimeout(() => {
+          document.getElementById('sparmaal-bar').style.width = `${prosent}%`;
+        }, 400);
+      }
+    }
+
+    function lagMetrikkData(p) {
+      const nd = p.nokkeldata;
+      if (p.id === 'emma') {
+        return [
+          { etikett: 'Inntekt/mnd', verdi: nd.inntektMnd, erKr: true, klasse: 'positiv', sub: 'Deltid + støtte' },
+          { etikett: 'På konto', verdi: nd.brukskonto, erKr: true, klasse: 'fremhevet', sub: 'Passiv kapital' },
+          { etikett: 'Studielån', verdi: nd.gjeld, erKr: true, klasse: 'rod', sub: 'Lånekassen' },
+          { etikett: 'Disponibelt/mnd', verdi: nd.disponibeltMnd, erKr: true, sub: 'Etter utgifter' },
+        ];
+      } else if (p.id === 'andreas') {
+        return [
+          { etikett: 'Bruttoinntekt/mnd', verdi: nd.inntektMnd, erKr: true, klasse: 'positiv', sub: 'Toppskatt' },
+          { etikett: 'Fond', verdi: nd.fond, erKr: true, klasse: 'fremhevet', sub: 'Ikke ASK-innpakket' },
+          { etikett: 'Boliglån', verdi: nd.gjeld, erKr: true, klasse: 'rod', sub: '4,1% rente' },
+          { etikett: 'Disponibelt/mnd', verdi: nd.disponibeltMnd, erKr: true, sub: 'IPS ikke utnyttet' },
+        ];
+      } else {
+        return [
+          { etikett: 'Pensjon/mnd', verdi: nd.inntektMnd, erKr: true, klasse: 'positiv', sub: 'AFP + SPK' },
+          { etikett: 'Likvid kapital', verdi: nd.brukskonto, erKr: true, klasse: 'fremhevet', sub: 'Passiv på konto' },
+          { etikett: 'Gjeld', verdi: 0, erKr: true, klasse: '', sub: 'Fullt nedbetalt' },
+          { etikett: 'Disponibelt/mnd', verdi: nd.disponibeltMnd, erKr: true, sub: 'Etter utgifter' },
+        ];
+      }
+    }
+
+    function renderAktivdeling(p) {
+      const nd = p.nokkeldata;
+      const bar = document.getElementById('akt-bar');
+      const forklaring = document.getElementById('akt-forklaring');
+
+      const totalt = nd.brukskonto + nd.sparekonto + nd.fond;
+      if (totalt === 0) return;
+
+      const passivProsent = Math.round((nd.brukskonto / totalt) * 100);
+      const fondProsent = Math.round((nd.fond / totalt) * 100);
+      const aktivProsent = Math.round((nd.sparekonto / totalt) * 100);
+      const tomProsent = 100 - passivProsent - fondProsent - aktivProsent;
+
+      const segmenter = [];
+      const punkter = [];
+
+      if (passivProsent > 0) {
+        segmenter.push(`<div class="aktivdeling-segment passiv" id="seg-passiv" style="width:0%">${passivProsent > 10 ? passivProsent + '%' : ''}</div>`);
+        punkter.push(`<div class="aktivdeling-punkt"><div class="aktivdeling-prikk" style="background:var(--tekst-dempet)"></div>${formatKr(nd.brukskonto)} passivt</div>`);
+      }
+      if (fondProsent > 0) {
+        segmenter.push(`<div class="aktivdeling-segment fond" id="seg-fond" style="width:0%">${fondProsent > 10 ? fondProsent + '%' : ''}</div>`);
+        punkter.push(`<div class="aktivdeling-punkt"><div class="aktivdeling-prikk" style="background:var(--blaa-aksent)"></div>${formatKr(nd.fond)} fond</div>`);
+      }
+      if (aktivProsent > 0) {
+        segmenter.push(`<div class="aktivdeling-segment aktiv" id="seg-aktiv" style="width:0%">${aktivProsent > 10 ? aktivProsent + '%' : ''}</div>`);
+        punkter.push(`<div class="aktivdeling-punkt"><div class="aktivdeling-prikk" style="background:var(--blaa)"></div>${formatKr(nd.sparekonto)} sparing</div>`);
+      }
+
+      bar.innerHTML = segmenter.join('');
+      forklaring.innerHTML = punkter.join('');
+
+      setTimeout(() => {
+        if (passivProsent > 0) document.getElementById('seg-passiv').style.width = passivProsent + '%';
+        if (fondProsent > 0) document.getElementById('seg-fond').style.width = fondProsent + '%';
+        if (aktivProsent > 0) document.getElementById('seg-aktiv').style.width = aktivProsent + '%';
+      }, 300);
+    }
+
+    function lagInfoData(p) {
+      const nd = p.nokkeldata;
+      if (p.id === 'emma') {
+        return [
+          { etikett: 'Brukskonto', verdi: formatKr(nd.brukskonto), klasse: 'blaa' },
+          { etikett: 'BSU', verdi: 'Ikke opprettet', klasse: 'rod' },
+          { etikett: 'Sparekonto', verdi: formatKr(nd.sparekonto) || '0 kr' },
+          { etikett: 'Fondssparing', verdi: formatKr(nd.fond) || '0 kr' },
+          { etikett: 'Studielån', verdi: formatKr(nd.gjeld), klasse: 'rod' },
+          { etikett: 'Månedlige utgifter', verdi: formatKr(nd.utgiftMnd) },
+          { etikett: 'Månedlig surplus', verdi: formatKr(nd.disponibeltMnd), klasse: 'blaa' },
+        ];
+      } else if (p.id === 'andreas') {
+        return [
+          { etikett: 'Brukskonto', verdi: formatKr(nd.brukskonto), klasse: 'blaa' },
+          { etikett: 'Aksjefond', verdi: formatKr(nd.fond), klasse: 'blaa' },
+          { etikett: 'IPS', verdi: 'Ikke opprettet', klasse: 'rod' },
+          { etikett: 'Boliglån', verdi: formatKr(nd.gjeld), klasse: 'rod' },
+          { etikett: 'Estimert boligverdi', verdi: '7 200 000 kr' },
+          { etikett: 'Månedlige utgifter', verdi: formatKr(nd.utgiftMnd) },
+          { etikett: 'Månedlig surplus', verdi: formatKr(nd.disponibeltMnd), klasse: 'blaa' },
+        ];
+      } else {
+        return [
+          { etikett: 'Brukskonto', verdi: formatKr(nd.brukskonto), klasse: 'blaa' },
+          { etikett: 'Fond/aksjer', verdi: '0 kr', klasse: 'rod' },
+          { etikett: 'Boliglån', verdi: '0 kr' },
+          { etikett: 'Estimert boligverdi', verdi: '5 800 000 kr' },
+          { etikett: 'Månedlig pensjon', verdi: formatKr(nd.inntektMnd) },
+          { etikett: 'Månedlige utgifter', verdi: formatKr(nd.utgiftMnd) },
+          { etikett: 'Månedlig surplus', verdi: formatKr(nd.disponibeltMnd), klasse: 'blaa' },
+        ];
+      }
+    }
+  </script>
+</body>
+</html>
