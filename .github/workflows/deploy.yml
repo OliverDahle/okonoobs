@@ -1,45 +1,37 @@
-name: Deploy to server
+name: Deploy til GitHub Pages
 
 on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        if: hashFiles('package.json') != ''
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-
-      - name: Install and build
-        if: hashFiles('package.json') != ''
-        run: |
-          npm ci
-          npm run build
-
-      - name: Prepare dist (vanilla HTML)
-        if: hashFiles('package.json') == ''
+      - name: Klargjor dist
         run: |
           mkdir -p dist
-          rsync -a --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='dist' --exclude='CLAUDE.md' --exclude='js/config.local.js' . dist/
+          rsync -a --exclude='.git' --exclude='.github' --exclude='dist' --exclude='CLAUDE.md' . dist/
 
-      - name: Inject config (API deaktivert)
-        if: hashFiles('package.json') == ''
-        run: |
-          mkdir -p dist/js
-          echo "window.CLAUDE_API_KEY = '';" > dist/js/config.js
+      - uses: actions/configure-pages@v5
 
-      - name: Deploy via rsync
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 204.168.153.113 >> ~/.ssh/known_hosts
-          rsync -avz --delete dist/ root@204.168.153.113:/var/www/okonoobs/public/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
