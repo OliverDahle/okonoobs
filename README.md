@@ -4,13 +4,25 @@
 
 ---
 
+## Executive Summary
+
+NM i Økonomi (Norwegian Championship in Economics) is Norway's largest case competition for economics students, organized by Econa. The 2026 final brought together the top 10 teams out of 632 registered, competing in Oslo with a live jury of senior professionals from Nordea, BDO, Söderberg & Partners and E24.
+
+The challenge was to design an AI-driven solution showing how Nordea could make savings more relevant and personalized for key customer segments. Our team built and deployed a working mobile web app as a live proof of concept, served at a custom domain and accessible to the jury via QR code during the presentation itself.
+
+The app simulates how Nordea's existing customer data could power real-time, personalized savings advice through a Claude AI integration. Three pre-defined customer profiles across different life stages demonstrate how the same underlying AI system adapts its recommendations, from a student with idle savings and no BSU account, to a high-income professional missing out on pension tax deductions, to a retired homeowner with 2.3 million NOK earning nothing in a checking account.
+
+Built with vanilla HTML, CSS and JavaScript and deployed via GitHub Actions.
+
+---
+
 ## Om prosjektet
 
 Dette er en fullstendig MVP-prototype av en AI-drevet sparerådgivningstjeneste for Nordea, bygget under NM i Økonomi 2026. Prototypen ble presentert live for en jury bestående av representanter fra Nordea, BDO, Söderberg og Partners og E24.
 
 Juryen skannet en QR-kode fra PowerPoint-presentasjonen og fikk opp denne appen på mobilen sin. Hensikten var å demonstrere at løsningen faktisk kan bygges, ikke bare beskrives på en slide.
 
-**Konkurransen:** NM i Økonomi er Norges største casekonkurranse for økonomistudenter, arrangert av Econa. Finalen samler de 10 beste lagene fra hele landet.
+**Konkurransen:** NM i Økonomi er Norges største casekonkurranse for økonomistudenter, arrangert av Econa. Finalen samler de 10 beste lagene fra hele landet, av totalt 632 påmeldte lag.
 
 ---
 
@@ -139,15 +151,3 @@ Appen følger Nordeas visuelle identitet:
 | Skillelinje | `#DADEEF` | Kanter og separatorer |
 
 **Layout:** Mobilapp-mønster med bunnnavigasjon, maks 430px bredde, sentrert på storskjerm med svart bakgrunn for telefonillusjon.
-
----
-
-## Om NM i Økonomi
-
-**NM i Økonomi** er Norges største casekonkurranse for økonomistudenter, arrangert av Econa i samarbeid med Nordea, BDO, Söderberg og Partners og E24.
-
-Finalen 2026 ble holdt i Oslo 21. mars 2026, der de 10 beste lagene fra hele landet presenterte løsninger på en felles caseoppgave for en jury av fagpersoner fra næringslivet og akademia.
-
----
-
-*Laget av Økonoobs, NM i Økonomi 2026*
