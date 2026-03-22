@@ -135,12 +135,12 @@ export const TONER = {
 };
 
 const NORDEA_PRODUKTER = `NORDEA-PRODUKTER SOM KAN VÆRE RELEVANTE:
-- BSU (Boligsparing for Ungdom): Maks 27 500 kr/år, 20% skattefradrag, høy rente. Kun for personer under 34 år som ikke eier bolig.
+- BSU (Boligsparing for Ungdom): Maks 27 500 kr/år, 10% skattefradrag, høy rente. Kun for personer under 34 år som ikke eier bolig.
 - Nordea Sparekonto Plus: Fleksibel buffersparing, god rente, ingen bindingstid.
 - Nordea Aksjesparekonto (ASK): Utsatt skatt på gevinster og utbytte, anbefalt for langsiktig fondssparing.
 - Nordea Fond Basis (indeksfond): Lavkost bred markedseksponering, passer for langsiktig sparing.
 - Nordea Fond Aktiv: Aktivt forvaltet, mål om å slå markedet, noe høyere kostnader.
-- Nordea IPS (Individuell Pensjonssparing): 26% skattefradrag på innskudd (opp til 15 000 kr/år), bundet til pensjonsalder, spesielt gunstig for de som betaler toppskatt.
+- Nordea IPS (Individuell Pensjonssparing): 22% skattereduksjon på innskudd (alminnelig inntekt), maks 15 000 kr/år, bundet til pensjonsalder. Gir 3 300 kr i garantert skattebesparelse ved maks innskudd.
 - Nordea Investeringskonto: Fleksibel plassering i fond og aksjer, skatt utsettes til uttak.
 - Nordea Private Banking: For kunder med finansformue over 3 mill. kr, personlig rådgiver.
 - Nordea Planer: Målbasert automatisk sparing til definerte mål (bolig, ferie, buffer).`;

@@ -23,6 +23,7 @@
         </div>
         <span class="header-tittel">AI Rådgivning</span>
         <span class="header-chip" id="profil-chip" onclick="window.location.href='/profil.html'"></span>
+        <span class="merkelapp merkelapp-gul" style="flex-shrink:0; font-size:11px;" title="API-nøkkel er fjernet fra offentlig versjon. Svarene er forhåndsgenererte.">Demo</span>
       </header>
 
       <!-- Chat-layout (fyller plass mellom header og bunn-nav) -->
@@ -89,11 +90,10 @@
     </div>
   </div>
 
-  <script src="/js/config.js"></script>
   <script type="module">
-    import { PROFILER, TONER, byggSystemprompt } from '/js/profiles.js';
+    import { PROFILER } from '/js/profiles.js';
     import { hentState, lagreState, parseMd, hentTid, initNav } from '/js/app.js';
-    import { sporStream } from '/js/claude-api.js';
+    import { finnSvar } from '/js/responses.js';
 
     // Tilstand
     const state = hentState();
@@ -265,78 +265,58 @@
       }
     }, 300);
 
+    // Simulert streaming av forhåndsgenerert tekst (API-nøkkel fjernet fra offentlig versjon)
+    async function simulertStream(tekst, onOrd) {
+      const ord = tekst.split(/(\s+)/);
+      let bygd = '';
+      for (const del of ord) {
+        const venteTid = /[.!?]$/.test(del.trim())
+          ? 80 + Math.random() * 60
+          : 18 + Math.random() * 30;
+        await new Promise((r) => setTimeout(r, venteTid));
+        bygd += del;
+        onOrd(bygd);
+      }
+      return bygd;
+    }
+
     async function sendMelding() {
       const tekst = input.value.trim();
       if (!tekst || erLaster) return;
 
-      // Vis bruker-melding
       leggTilMelding('bruker', tekst);
       input.value = '';
       input.style.height = 'auto';
       sendKnapp.disabled = true;
       erLaster = true;
 
-      // Legg til i historikk
-      historikk.push({ role: 'user', content: tekst });
-
-      // Vis laste-indikator
       visLasteIndikator();
 
-      try {
-        const system = byggSystemprompt(profil.id, gjeldendeTone);
+      // Kort pause for å simulere behandlingstid
+      await new Promise((r) => setTimeout(r, 600 + Math.random() * 400));
 
-        // Opprett AI-melding-container
-        const aiDiv = document.createElement('div');
-        aiDiv.className = 'chat-melding ai';
-        const avsenderDiv = document.createElement('div');
-        avsenderDiv.className = 'melding-avsender';
-        avsenderDiv.textContent = 'Nordea AI';
-        const boble = document.createElement('div');
-        boble.className = 'melding-boble ai';
+      fjernLasteIndikator();
 
-        let fullTekst = '';
+      const svarTekst = finnSvar(profil.id, tekst, gjeldendeTone);
 
-        const fullSvar = await sporStream(
-          historikk,
-          (token, akkumulert) => {
-            fjernLasteIndikator();
-            if (!aiDiv.isConnected) {
-              aiDiv.appendChild(avsenderDiv);
-              aiDiv.appendChild(boble);
-              aiDiv.insertAdjacentHTML('beforeend', `<div class="melding-tid">${hentTid()}</div>`);
-              omrade.appendChild(aiDiv);
-            }
-            fullTekst = akkumulert;
-            boble.innerHTML = parseMd(akkumulert);
-            scrollNed();
-          },
-          { system, maxTokens: 800 }
-        );
+      // Opprett AI-melding-container
+      const aiDiv = document.createElement('div');
+      aiDiv.className = 'chat-melding ai';
+      const avsenderDiv = document.createElement('div');
+      avsenderDiv.className = 'melding-avsender';
+      avsenderDiv.textContent = 'Nordea AI';
+      const boble = document.createElement('div');
+      boble.className = 'melding-boble ai';
+      aiDiv.appendChild(avsenderDiv);
+      aiDiv.appendChild(boble);
+      aiDiv.insertAdjacentHTML('beforeend', `<div class="melding-tid">${hentTid()}</div>`);
+      omrade.appendChild(aiDiv);
+      scrollNed();
 
-        // Siste oppdatering med komplett tekst
-        boble.innerHTML = parseMd(fullSvar || fullTekst);
-
-        // Legg til i historikk
-        historikk.push({ role: 'assistant', content: fullSvar || fullTekst });
-
-      } catch (feil) {
-        fjernLasteIndikator();
-        const feilTekst = feil.message?.includes('API_KEY')
-          ? 'Tjenesten er ikke tilgjengelig. API-nokkel mangler.'
-          : `Noe gikk galt. Prøv igjen om et øyeblikk. (${feil.message})`;
-
-        const feilDiv = document.createElement('div');
-        feilDiv.className = 'chat-melding ai';
-        feilDiv.innerHTML = `
-          <div class="melding-avsender">System</div>
-          <div class="feil-melding">${feilTekst}</div>
-        `;
-        omrade.appendChild(feilDiv);
+      await simulertStream(svarTekst, (akkumulert) => {
+        boble.innerHTML = parseMd(akkumulert);
         scrollNed();
-
-        // Fjern den mislykkede meldingen fra historikk
-        historikk.pop();
-      }
+      });
 
       erLaster = false;
       sendKnapp.disabled = input.value.trim().length === 0;
