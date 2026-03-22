@@ -4,15 +4,17 @@
 
 ---
 
-## Executive Summary
+## Executive Summary *(English)*
 
-NM i Økonomi (Norwegian Championship in Economics) is Norway's largest case competition for economics students, organized by Econa. The 2026 final brought together the top 10 teams out of 632 registered, competing in Oslo with a live jury of senior professionals from Nordea, BDO, Söderberg & Partners and E24.
+*The rest of this project, including the codebase and all documentation below, is written in Norwegian.*
 
-The challenge was to design an AI-driven solution showing how Nordea could make savings more relevant and personalized for key customer segments. Our team built and deployed a working mobile web app as a live proof of concept, served at a custom domain and accessible to the jury via QR code during the presentation itself.
+NM i Økonomi (Norwegian Championship in Economics) is Norway's largest case competition for economics students. The 2026 final gathered the top 10 teams out of 632 registered, judged by senior professionals from Nordea, BDO, Söderberg & Partners and E24.
 
-The app simulates how Nordea's existing customer data could power real-time, personalized savings advice through a Claude AI integration. Three pre-defined customer profiles across different life stages demonstrate how the same underlying AI system adapts its recommendations, from a student with idle savings and no BSU account, to a high-income professional missing out on pension tax deductions, to a retired homeowner with 2.3 million NOK earning nothing in a checking account.
+Teams receive a case problem and have a fixed time window to develop and present a solution. Ours included building and deploying this web app, from blank slate to live production, within the 3.5 hours allotted for the entire round, presentation included.
 
-Built with vanilla HTML, CSS and JavaScript and deployed via GitHub Actions.
+The app is an AI-powered savings advisor for Nordea, demonstrating how existing customer data can generate personalized, real-time financial recommendations across different life stages. Built with vanilla HTML, CSS and JavaScript, deployed via GitHub Actions.
+
+**Team Økonoobs:** Fillip Jonassen, Mathias Hermstad, Oliver Dahle
 
 ---
 
