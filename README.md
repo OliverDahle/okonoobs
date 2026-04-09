@@ -153,3 +153,7 @@ Appen følger Nordeas visuelle identitet:
 | Skillelinje | `#DADEEF` | Kanter og separatorer |
 
 **Layout:** Mobilapp-mønster med bunnnavigasjon, maks 430px bredde, sentrert på storskjerm med svart bakgrunn for telefonillusjon.
+
+---
+
+Lisensiert under [MIT-lisensen](LICENSE).
